@@ -13,7 +13,7 @@ export type Context = {
   response: { status?: number };
   /** Headers da resposta; use `resHeaders.append("Set-Cookie", ...)`. */
   resHeaders: Headers;
-  /** Headers da requisição (ex.: `x-admin-key`). */
+  /** Headers da requisição. */
   reqHeaders: Headers;
   /** Id da conta da sessão (cookie `session`), se houver sessão válida. */
   accountId: string | null;
