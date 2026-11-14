@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Stars } from "@/components/stars";
 import { cn } from "@/lib/utils";
 
 const RATING = 4;
@@ -30,25 +30,7 @@ export function ReviewerPreview({ firstName, lastName }: ReviewerPreviewProps) {
         <p className="text-sm font-medium text-muted-foreground">
           Fone de ouvido sem fio
         </p>
-        <div
-          className="flex gap-0.5"
-          role="img"
-          aria-label={`${RATING} de 5 estrelas`}
-        >
-          {Array.from({ length: 5 }, (_, i) => (
-            <Star
-              // biome-ignore lint/suspicious/noArrayIndexKey: lista fixa
-              key={i}
-              aria-hidden
-              className={cn(
-                "size-4",
-                i < RATING
-                  ? "fill-rating text-rating"
-                  : "fill-muted text-muted",
-              )}
-            />
-          ))}
-        </div>
+        <Stars value={RATING} />
       </div>
 
       <blockquote className="mt-4 hidden font-heading text-xl leading-snug text-pretty sm:block">

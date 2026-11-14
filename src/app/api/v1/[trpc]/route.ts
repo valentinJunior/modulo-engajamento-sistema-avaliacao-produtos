@@ -9,8 +9,8 @@ function handler(req: Request) {
     endpoint: "/api/v1",
     req,
     router: appRouter,
-    createContext: () => {
-      ctx = createContext();
+    createContext: async (opts) => {
+      ctx = await createContext(opts);
       return ctx;
     },
     responseMeta({ errors }) {
