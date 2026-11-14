@@ -17,7 +17,10 @@
     "db:link": "bun --env-file=.env.local run db:link:run",
     "db:link:run": "supabase link --project-ref \"$SUPABASE_PROJECT_REF\"",
     "db:push": "bun --env-file=.env.local x supabase db push --linked",
-    "db:migrations:remote": "bun --env-file=.env.local x supabase migration list --linked"
+    "db:migrations:remote": "bun --env-file=.env.local x supabase migration list --linked",
+    "n8n:up": "docker compose -f n8n/compose.yml up -d",
+    "n8n:down": "docker compose -f n8n/compose.yml down",
+    "n8n:logs": "docker compose -f n8n/compose.yml logs -f n8n"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
