@@ -5,8 +5,12 @@ import { ZodError, z } from "zod";
 import { readSessionCookie, verifySessionToken } from "@/server/session";
 
 export type Context = {
-  /** Status HTTP de sucesso definido pela procedure (ex.: 201 em criações). */
-  successStatus?: number;
+  /**
+   * Status HTTP de sucesso definido pela procedure (ex.: `ctx.response.status = 201`).
+   * É um objeto compartilhado de propósito: middlewares como `protectedProcedure`
+   * criam uma cópia do ctx, e um campo simples se perderia nessa cópia.
+   */
+  response: { status?: number };
   /** Headers da resposta; use `resHeaders.append("Set-Cookie", ...)`. */
   resHeaders: Headers;
   /** Headers da requisição (ex.: `x-admin-key`). */
@@ -22,7 +26,7 @@ export async function createContext({
   const accountId = await verifySessionToken(
     readSessionCookie(req.headers.get("cookie")),
   );
-  return { resHeaders, reqHeaders: req.headers, accountId };
+  return { response: {}, resHeaders, reqHeaders: req.headers, accountId };
 }
 
 type FieldErrors = Record<string, string[] | undefined>;

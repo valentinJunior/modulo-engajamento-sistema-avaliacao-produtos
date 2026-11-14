@@ -44,3 +44,6 @@ next-env.d.ts
 # supabase CLI (estado local do link com o projeto externo)
 /supabase/.temp
 /supabase/.branches
+
+# worktrees dos subagents do Claude Code
+/.claude/worktrees/

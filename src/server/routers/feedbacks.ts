@@ -81,7 +81,7 @@ export const feedbacksRouter = router({
       revalidateTag(productTag(input.productId), { expire: 0 });
       revalidateTag(productFeedbacksTag(input.productId), { expire: 0 });
 
-      ctx.successStatus = 201;
+      ctx.response.status = 201;
       return {
         id: data.id,
         productId: data.product_id,

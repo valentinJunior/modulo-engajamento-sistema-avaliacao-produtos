@@ -15,8 +15,8 @@ function handler(req: Request) {
     },
     responseMeta({ errors }) {
       // Em caso de sucesso, usa o status definido pela procedure (ex.: 201)
-      if (errors.length === 0 && ctx?.successStatus) {
-        return { status: ctx.successStatus };
+      if (errors.length === 0 && ctx?.response.status) {
+        return { status: ctx.response.status };
       }
       return {};
     },

@@ -1,5 +1,6 @@
 import "server-only";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 import { getDb } from "@/server/db";
 import { SESSION_COOKIE, verifySessionToken } from "@/server/session";
 
@@ -16,6 +17,9 @@ export type Account = {
  * dentro de um <Suspense>.
  */
 export async function getCurrentAccount(): Promise<Account | null> {
+  // A validação do JWT lê o relógio; sem isso o Cache Components acusa
+  // valor instável durante o prerender.
+  await connection();
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   const accountId = await verifySessionToken(token);
   if (!accountId) return null;

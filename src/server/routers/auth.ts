@@ -53,7 +53,7 @@ export const authRouter = router({
         });
       }
 
-      ctx.successStatus = 201;
+      ctx.response.status = 201;
       return { id: data.id };
     }),
 
