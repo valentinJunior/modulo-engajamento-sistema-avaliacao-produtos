@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { SignUpForm } from "./sign-up-form";
 
 export const metadata: Metadata = {
@@ -17,6 +18,15 @@ export default function SignUpPage() {
             <p className="mt-3 max-w-[38ch] text-base text-muted-foreground">
               Avalie os produtos que você usa e ajude outras pessoas a escolher
               melhor.
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Já tem conta?{" "}
+              <Link
+                href="/auth/sign-in"
+                className="rounded-sm font-medium text-foreground underline underline-offset-4 outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50"
+              >
+                Entrar
+              </Link>
             </p>
           </header>
         }
