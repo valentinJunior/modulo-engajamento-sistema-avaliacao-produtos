@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { MIN_FEEDBACKS_FOR_SUMMARY } from "@/server/ai-summary";
 import { getProduct, listFeedbacks } from "@/server/product-details";
+import { AiSummary, AiSummarySkeleton } from "./ai-summary";
 import { FeedbackList } from "./feedback-list";
 import { ProductHeader } from "./product-header";
 import { ReviewBox, ReviewBoxSkeleton } from "./review-box";
@@ -47,6 +49,13 @@ async function ProductView({
   return (
     <>
       <ProductHeader product={product} reviewCount={feedbacks.length} />
+
+      {feedbacks.length >= MIN_FEEDBACKS_FOR_SUMMARY && (
+        // Pode esperar a IA; o resto da página não depende disso
+        <Suspense fallback={<AiSummarySkeleton />}>
+          <AiSummary productId={product.id} feedbackCount={feedbacks.length} />
+        </Suspense>
+      )}
 
       <section
         aria-labelledby="reviews-title"

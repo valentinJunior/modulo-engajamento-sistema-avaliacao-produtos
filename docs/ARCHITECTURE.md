@@ -16,7 +16,7 @@ Vamos utilizar as seguintes bibliotecas principais:
 - TypeScript: Linguagem principalmente de desenvolvimento com tipagem
 - Next.js: framework para criacao de APIs
 - bcrypt: Geracao de salt + hash da senha
-- Mastra.ai: Criacao e customizacao de agentes internos
+- Mastra.ai: Criacao e customizacao de agentes internos (ex.: resumo das avaliações por IA com OpenAI `gpt-4o-mini`, em `src/mastra`; requer `OPENAI_API_KEY`)
 - TRPC: Gestao de endpoints
 
 ## Bando de dados

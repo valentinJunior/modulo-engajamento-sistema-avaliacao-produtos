@@ -2,7 +2,9 @@ import "server-only";
 import { TRPCError } from "@trpc/server";
 import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
+import { after } from "next/server";
 import { createFeedbackSchema } from "@/lib/validations/feedback";
+import { refreshProductAiSummary } from "@/server/ai-summary";
 import { getDb, PG_UNIQUE_VIOLATION } from "@/server/db";
 import { productFeedbacksTag, productTag } from "@/server/product-details";
 import { PRODUCTS_CACHE_TAG } from "@/server/product-list";
@@ -83,6 +85,8 @@ export const feedbacksRouter = router({
       revalidateTag(productFeedbacksTag(input.productId), { expire: 0 });
       // A nota média aparece também na listagem da home
       revalidateTag(PRODUCTS_CACHE_TAG, "max");
+      // Atualiza o resumo por IA depois da resposta, sem atrasar quem avaliou
+      after(() => refreshProductAiSummary(input.productId));
 
       ctx.response.status = 201;
       return {
