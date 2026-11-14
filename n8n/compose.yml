@@ -87,6 +87,10 @@ services:
     env_file: .env
     volumes:
       - n8n-data:/home/node/.n8n
+    # Permite que os workflows chamem o app Next.js rodando no host
+    # (ex.: http://host.docker.internal:3000/api/v1/products.create).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   runners:
     image: ghcr.io/n8n-io/runners:${N8N_VERSION}
