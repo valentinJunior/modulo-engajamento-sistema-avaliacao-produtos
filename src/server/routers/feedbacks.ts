@@ -5,6 +5,7 @@ import { revalidateTag } from "next/cache";
 import { createFeedbackSchema } from "@/lib/validations/feedback";
 import { getDb, PG_UNIQUE_VIOLATION } from "@/server/db";
 import { productFeedbacksTag, productTag } from "@/server/product-details";
+import { PRODUCTS_CACHE_TAG } from "@/server/product-list";
 import { protectedProcedure, router } from "@/server/trpc";
 
 /** Código Postgres para violação de chave estrangeira. */
@@ -80,6 +81,8 @@ export const feedbacksRouter = router({
       // ver a avaliação nova e a média atualizada logo em seguida.
       revalidateTag(productTag(input.productId), { expire: 0 });
       revalidateTag(productFeedbacksTag(input.productId), { expire: 0 });
+      // A nota média aparece também na listagem da home
+      revalidateTag(PRODUCTS_CACHE_TAG, "max");
 
       ctx.response.status = 201;
       return {

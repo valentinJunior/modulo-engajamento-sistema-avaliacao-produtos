@@ -64,7 +64,7 @@ export const productsRouter = router({
 
       // A primeira página da home é cacheada; o novo produto aparece nela
       revalidateTag(PRODUCTS_CACHE_TAG, "max");
-      ctx.successStatus = 201;
+      ctx.response.status = 201;
       return { id: data.id };
     }),
 });
