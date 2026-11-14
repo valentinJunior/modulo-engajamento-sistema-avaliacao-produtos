@@ -104,5 +104,6 @@ services:
     environment:
       SEARXNG_SECRET: ${SEARXNG_SECRET}
     volumes:
-      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro
+      # ",z": rótulo SELinux (Fedora) para o container conseguir ler o arquivo
+      - ./searxng-settings.yml:/etc/searxng/settings.yml:ro,z
     # Internal-only: n8n reaches it by service name. Never publish its port.
